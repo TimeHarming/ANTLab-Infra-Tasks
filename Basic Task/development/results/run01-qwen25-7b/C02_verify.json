@@ -1,8 +1,8 @@
 {
-  "run_id": "c02-run01",
-  "generated_at": "2026-10-10T19:12:05+08:00",
+  "run_id": "run01-qwen25-7b",
+  "generated_at": "2026-10-10T20:51:20+08:00",
   "orig_path": "/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
-  "fixed_path": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py",
+  "fixed_path": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py",
   "orig": {
     "results": [
       {
@@ -11,7 +11,7 @@
         "passed": false,
         "output": null,
         "error": "ZeroDivisionError: division by zero",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 84, in summarize_tickets\n    average = int(sum(hours) / len(records))\n                  ~~~~~~~~~~~^~~~~~~~~~~~~~\nZeroDivisionError: division by zero\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 84, in summarize_tickets\n    average = int(sum(hours) / len(records))\n                  ~~~~~~~~~~~^~~~~~~~~~~~~~\nZeroDivisionError: division by zero\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -26,7 +26,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'owner'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -41,7 +41,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'status'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 64, in summarize_tickets\n    status = record[\"status\"]\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 64, in summarize_tickets\n    status = record[\"status\"]\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -68,7 +68,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'owner'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -96,7 +96,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: ' Open '",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: ' Open '\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: ' Open '\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -112,7 +112,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'unknown'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: 'unknown'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: 'unknown'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -243,7 +243,7 @@
         "passed": false,
         "output": null,
         "error": "ValueError: Invalid isoformat string: 'not-a-time'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 80, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 52, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 80, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 52, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -313,7 +313,7 @@
         "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': -9}"
       },
       {
-        "case": "创建与关闭使用不同 UTC 偏移：计入耗时",
+        "case": "创建与关闭使用不同 UTC 偏移：正确换算后计入耗时（应得 1.0 小时）",
         "input": [
           {
             "id": "T001",
@@ -343,7 +343,7 @@
           "average_closed_hours": 1
         },
         "passed": true,
-        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 1}（两者为同一时刻，耗时应为 0.0 并计入）"
+        "detail": "实际=1（09:00+08:00 → 01:00 UTC，02:00+00:00 → 02:00 UTC，耗时应为 1.0 小时）"
       },
       {
         "case": "平均耗时保留两位小数",
@@ -383,7 +383,7 @@
           "average_closed_hours": 1
         },
         "passed": false,
-        "detail": "实际=1（期望 1.67）"
+        "detail": "实际=1（期望 1.67，须保留两位小数）"
       }
     ],
     "source": "/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
@@ -463,7 +463,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'status'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py\", line 31, in summarize_tickets\n    status = record[\"status\"].strip().lower()\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 31, in summarize_tickets\n    status = record[\"status\"].strip().lower()\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -564,8 +564,8 @@
           },
           "average_closed_hours": 0.0
         },
-        "passed": true,
-        "detail": "实际={'total': 3, 'by_status': {'open': 1, 'processing': 1, 'closed': 1, 'other': 0}, 'by_owner': {'T001': {'total': 1, 'open': 1, 'processing': 0, 'closed': 0, 'other': 0}, 'T002': {'total': 1, 'open': 0, 'processing': 1, 'closed': 0, 'other': 0}, 'T003': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 0.0}"
+        "passed": false,
+        "detail": "实际={'total': 3, 'by_status': {'open': 1, 'processing': 1, 'closed': 1, 'other': 0}, 'by_owner': {'T001': {'total': 1, 'open': 1, 'processing': 0, 'closed': 0, 'other': 0}, 'T002': {'total': 1, 'open': 0, 'processing': 1, 'closed': 0, 'other': 0}, 'T003': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 0.0}（期望 by_owner 仅有 Chen 一个键、total=3）"
       },
       {
         "case": "status 未知值：归 other，不抛异常",
@@ -654,7 +654,7 @@
         "passed": false,
         "output": null,
         "error": "AttributeError: 'NoneType' object has no attribute 'strip'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py\", line 29, in summarize_tickets\n    id = record.get(\"id\").strip()\n         ^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'strip'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 29, in summarize_tickets\n    id = record.get(\"id\").strip()\n         ^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'strip'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -703,7 +703,7 @@
         "passed": false,
         "output": null,
         "error": "ValueError: Invalid isoformat string: 'not-a-time'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 279, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py\", line 53, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py\", line 16, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 53, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 16, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -773,7 +773,7 @@
         "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'T001': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 0.0}"
       },
       {
-        "case": "创建与关闭使用不同 UTC 偏移：计入耗时",
+        "case": "创建与关闭使用不同 UTC 偏移：正确换算后计入耗时（应得 1.0 小时）",
         "input": [
           {
             "id": "T001",
@@ -803,7 +803,7 @@
           "average_closed_hours": 1.0
         },
         "passed": true,
-        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'T001': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 1.0}（两者为同一时刻，耗时应为 0.0 并计入）"
+        "detail": "实际=1.0（09:00+08:00 → 01:00 UTC，02:00+00:00 → 02:00 UTC，耗时应为 1.0 小时）"
       },
       {
         "case": "平均耗时保留两位小数",
@@ -850,19 +850,20 @@
           "average_closed_hours": 1.6666666666666665
         },
         "passed": false,
-        "detail": "实际=1.6666666666666665（期望 1.67）"
+        "detail": "实际=1.6666666666666665（期望 1.67，须保留两位小数）"
       }
     ],
-    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/c02-run01/outputs/C02_fixed.py",
+    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py",
     "summary": {
       "total_cases": 14,
-      "passed": 3,
-      "failed": 11,
-      "pass_rate": 0.2143,
+      "passed": 2,
+      "failed": 12,
+      "pass_rate": 0.1429,
       "failed_cases": [
         "缺 owner 键：归 unassigned，不抛异常且计入统计",
         "缺 status 键：归 other，不抛异常且计入统计",
         "owner 为空串/None/纯空格：全部归 unassigned",
+        "status 大小写/首尾空格：归一化为 open/processing/closed",
         "status 未知值：归 other，不抛异常",
         "重复 id：只统计第一条，total 为去重后数量",
         "id 缺失或纯空格：跳过该记录，不抛异常",

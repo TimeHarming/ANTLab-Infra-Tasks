@@ -1,0 +1,126 @@
+{
+  "_说明": "运行档案（占位）：run02 使用 Qwen2.5-Coder-7B 与 run01 基线做 A/B 对比。除模型与环境差异外，服务配置、采样参数、评测方法均与 run01 保持一致，以便对比。请下载模型后按 TODO 逐项补齐。",
+
+  "run_id": "run02-coder7b",
+  "run_prompts": ["C01", "C02"],
+  "run_started_at": "TODO: 实际开始时间",
+  "data_collected_at": "TODO: 数据整理时间",
+  "run_purpose": "优化组：以代码专精模型替换通用模型，验证「模型选型」对 C01/C02 任务效果的影响（对照 run01-qwen25-7b）",
+
+  "git": {
+    "commit": "TODO: 运行时 git rev-parse HEAD",
+    "branch": "master",
+    "repo": "https://github.com/Mango03111/ANTLab-Infra-Tasks"
+  },
+
+  "hardware": {
+    "_note": "与 run01 为同一台机器，未变化，直接沿用。",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "gpu_vram_total_mib": 8150,
+    "gpu_compute_capability": "12.0",
+    "gpu_vram_free_at_idle_mib": 7033,
+    "gpu_vram_used_during_run_mib": "TODO: 实测",
+    "cpu": "Intel Core Ultra 9 275HX",
+    "cpu_threads_used": 24,
+    "host_ram_gb": 32.0,
+    "host_os": "Windows 11 家庭版 中文版 25H2（OS 版本 26200.9457）",
+    "wsl_distro": "Ubuntu-26.04",
+    "wsl_version": "3.0.1.0",
+    "nvidia_driver": "591.91"
+  },
+
+  "model": {
+    "name": "TODO: 例如 Qwen2.5-Coder-7B-Instruct",
+    "source_type": "Hugging Face 官方 GGUF 仓库下载",
+    "hf_repo": "TODO: 例如 Qwen/Qwen2.5-Coder-7B-Instruct-GGUF",
+    "file_path_in_wsl": "TODO: 例如 /mnt/d/models/qwen2.5-coder-7b/<文件名>.gguf",
+    "file_size_bytes": "TODO",
+    "quantization": "TODO: 期望 Q4_K - Medium",
+    "params": "TODO: 期望 7.62 B",
+    "sha256": "TODO: sha256sum 实测值",
+    "known_issue": "TODO: 记录加载告警（若有）。预期官方 GGUF 无 '</s>' token 类型告警。"
+  },
+
+  "inference_engine": {
+    "_note": "与 run01 相同，保持固定，确保只变更模型这一个变量。",
+    "name": "llama.cpp",
+    "build": "b11540",
+    "commit": "1e6f04a75",
+    "binaries_path_in_wsl": "/home/iriyasufiiru/llama/llama-b11540",
+    "cuda_runtime": "12.8.90 (cuda-cudart-12-8)",
+    "cublas": "12.8.5.5 (libcublas-12-8)"
+  },
+
+  "service_config": {
+    "_note": "与 run01 保持一致（-c 24576 -np 2 -fa on），便于对比。若因显存不足需调整，必须记录差异并说明原因。",
+    "command": "TODO: 实际启动命令",
+    "n_ctx_total_tokens": 24576,
+    "n_parallel_slots": 2,
+    "n_ctx_per_slot_tokens": 12288,
+    "gpu_vram_used_with_24k_ctx_mib": "TODO: 实测（预期与 run01 的 5780 MiB 接近）",
+    "kv_unified": false,
+    "kv_type": "f16",
+    "flash_attention": "on (-fa on)",
+    "n_gpu_layers": 99,
+    "load_mode": "none (-lm none)",
+    "host": "127.0.0.1",
+    "port": 8080,
+    "api_key": "未设置"
+  },
+
+  "sampling_params": {
+    "_note": "TODO: 从 GET /props 抄录，确认与 run01 一致（温度 0.8 / top_k 40 / top_p 0.95 / min_p 0.05 / repeat_penalty 1.0）。",
+    "temperature": 0.800000011920929,
+    "top_k": 40,
+    "top_p": 0.949999988079071,
+    "min_p": 0.05000000074505806,
+    "repeat_last_n": 64,
+    "repeat_penalty": 1.0,
+    "seed": 4294967295,
+    "_seed_note": "TODO: 建议本次固定一个确定的 seed，使输出可复现。"
+  },
+
+  "client": {
+    "type": "llama.cpp 内置 Web UI",
+    "url": "http://127.0.0.1:8080/",
+    "browser": "TODO",
+    "conversation_ids": {
+      "C01": "TODO",
+      "C02": "TODO"
+    },
+    "_note": "务必每条任务开新会话（New chat），避免对话历史累加导致输入 token 口径与 run01 不可比。",
+    "mcp_tools_enabled": "TODO: 应已关闭 Browser Tools 等工具"
+  },
+
+  "prompts": {
+    "C01": {
+      "type": "关联源文件（代码审查）",
+      "attached_file": "Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+      "input_tokens_reported_by_ui": "TODO",
+      "output_tokens_reported_by_ui": "TODO",
+      "server_generation_tps": "TODO",
+      "output": "outputs/C01_review.md"
+    },
+    "C02": {
+      "type": "关联源文件（代码修复与测试）",
+      "attached_file": "Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+      "input_tokens_reported_by_ui": "TODO",
+      "output_tokens_reported_by_ui": "TODO",
+      "server_generation_tps": "TODO",
+      "output_raw": "C02_raw_response.md",
+      "output_code": "outputs/C02_fixed.py"
+    }
+  },
+
+  "evaluation": {
+    "method": "tests/verify_ticket_stats.py（与 run01 相同的 14 个用例）",
+    "orig_pass": "0/14（同一份原始素材，应与 run01 一致）",
+    "fixed_pass": "TODO: 本次实测",
+    "verification_file": "C02_verify.json",
+    "comparison_baseline": {
+      "run_id": "run01-qwen25-7b",
+      "model": "Qwen2.5-7B-Instruct",
+      "fixed_pass": "1/14 (7.1%)"
+    }
+  }
+}

@@ -231,8 +231,11 @@ add_case(
 )
 
 # 13. 不同 UTC 偏移（约定：可解析且含时区即计入）-------------------------
+# 说明：created_at 09:00+08:00 = 01:00 UTC；closed_at 02:00+00:00 = 02:00 UTC，
+# 两者相差正好 1 小时（并非同一时刻）。本用例用于验证实现能跨不同 UTC 偏移
+# 正确换算耗时，而不是仅做字符串或本地时间相减。
 add_case(
-    "创建与关闭使用不同 UTC 偏移：计入耗时",
+    "创建与关闭使用不同 UTC 偏移：正确换算后计入耗时（应得 1.0 小时）",
     [
         _rec(id="T001", owner="Chen", status="closed", created_at="2026-10-12T09:00:00+08:00",
              closed_at="2026-10-12T02:00:00+00:00")
@@ -240,8 +243,8 @@ add_case(
     lambda r: _ok(
         r["total"] == 1
         and r["average_closed_hours"] is not None
-        and abs(float(r["average_closed_hours"])) < 1e-9,
-        f"实际={r['average_closed_hours']}（两者为同一时刻，耗时应为 0.0）",
+        and abs(float(r["average_closed_hours"]) - 1.0) < 1e-9,
+        f"实际={r['average_closed_hours']}（09:00+08:00 → 01:00 UTC，02:00+00:00 → 02:00 UTC，耗时应为 1.0 小时）",
     ),
 )
 

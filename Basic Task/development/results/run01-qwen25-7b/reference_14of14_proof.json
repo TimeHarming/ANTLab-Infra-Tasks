@@ -1,0 +1,908 @@
+{
+  "run_id": "reference-proof",
+  "generated_at": "2026-10-10T20:51:12+08:00",
+  "orig_path": "/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+  "fixed_path": "/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/fixtures/reference_ticket_stats.py",
+  "orig": {
+    "results": [
+      {
+        "case": "空输入：total=0、四状态=0、by_owner={}、average_closed_hours=None",
+        "input": [],
+        "passed": false,
+        "output": null,
+        "error": "ZeroDivisionError: division by zero",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 84, in summarize_tickets\n    average = int(sum(hours) / len(records))\n                  ~~~~~~~~~~~^~~~~~~~~~~~~~\nZeroDivisionError: division by zero\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "缺 owner 键：归 unassigned，不抛异常且计入统计",
+        "input": [
+          {
+            "id": "T001",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "KeyError: 'owner'",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "缺 status 键：归 other，不抛异常且计入统计",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "KeyError: 'status'",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 64, in summarize_tickets\n    status = record[\"status\"]\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "owner 为空串/None/纯空格：全部归 unassigned",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T002",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T003",
+            "owner": "   ",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "KeyError: 'owner'",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 63, in summarize_tickets\n    owner = record[\"owner\"]\n            ~~~~~~^^^^^^^^^\nKeyError: 'owner'\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "status 大小写/首尾空格：归一化为 open/processing/closed",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": " Open ",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T002",
+            "owner": "Chen",
+            "status": "PROCESSING",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T003",
+            "owner": "Chen",
+            "status": "Closed",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "KeyError: ' Open '",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: ' Open '\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "status 未知值：归 other，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "unknown",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "KeyError: 'unknown'",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 75, in summarize_tickets\n    by_status[status] += 1\n    ~~~~~~~~~^^^^^^^^\nKeyError: 'unknown'\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "重复 id：只统计第一条，total 为去重后数量",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T10:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 2,
+          "by_status": {
+            "open": 1,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 2,
+              "open": 1,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 0
+        },
+        "passed": false,
+        "detail": "实际={'total': 2, 'by_status': {'open': 1, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 2, 'open': 1, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 0}（期望 total=1、open=1、closed=0）"
+      },
+      {
+        "case": "id 缺失或纯空格：跳过该记录，不抛异常",
+        "input": [
+          {
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "   ",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 3,
+          "by_status": {
+            "open": 3,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 3,
+              "open": 3,
+              "processing": 0,
+              "closed": 0,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 0
+        },
+        "passed": false,
+        "detail": "实际={'total': 3, 'by_status': {'open': 3, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {'Chen': {'total': 3, 'open': 3, 'processing': 0, 'closed': 0, 'other': 0}}, 'average_closed_hours': 0}"
+      },
+      {
+        "case": "closed 工单缺 closed_at：保留计数，跳过耗时，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 0
+        },
+        "passed": false,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 0}"
+      },
+      {
+        "case": "closed_at 格式错误：保留计数，跳过耗时，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "not-a-time"
+          }
+        ],
+        "passed": false,
+        "output": null,
+        "error": "ValueError: Invalid isoformat string: 'not-a-time'",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 80, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py\", line 52, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
+        "detail": "抛出异常，判为失败"
+      },
+      {
+        "case": "时间缺少时区：跳过耗时统计，保留计数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00",
+            "closed_at": "2026-10-12T18:00:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 9
+        },
+        "passed": false,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': 9}"
+      },
+      {
+        "case": "关闭时间早于创建时间：跳过耗时统计，保留计数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T18:00:00+08:00",
+            "closed_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": -9
+        },
+        "passed": false,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': -9}"
+      },
+      {
+        "case": "创建与关闭使用不同 UTC 偏移：正确换算后计入耗时（应得 1.0 小时）",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T02:00:00+00:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 1
+        },
+        "passed": true,
+        "detail": "实际=1（09:00+08:00 → 01:00 UTC，02:00+00:00 → 02:00 UTC，耗时应为 1.0 小时）"
+      },
+      {
+        "case": "平均耗时保留两位小数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T10:20:00+08:00"
+          },
+          {
+            "id": "T002",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T11:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 2,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 2,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 2,
+              "open": 0,
+              "processing": 0,
+              "closed": 2,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 1
+        },
+        "passed": false,
+        "detail": "实际=1（期望 1.67，须保留两位小数）"
+      }
+    ],
+    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+    "summary": {
+      "total_cases": 14,
+      "passed": 1,
+      "failed": 13,
+      "pass_rate": 0.0714,
+      "failed_cases": [
+        "空输入：total=0、四状态=0、by_owner={}、average_closed_hours=None",
+        "缺 owner 键：归 unassigned，不抛异常且计入统计",
+        "缺 status 键：归 other，不抛异常且计入统计",
+        "owner 为空串/None/纯空格：全部归 unassigned",
+        "status 大小写/首尾空格：归一化为 open/processing/closed",
+        "status 未知值：归 other，不抛异常",
+        "重复 id：只统计第一条，total 为去重后数量",
+        "id 缺失或纯空格：跳过该记录，不抛异常",
+        "closed 工单缺 closed_at：保留计数，跳过耗时，不抛异常",
+        "closed_at 格式错误：保留计数，跳过耗时，不抛异常",
+        "时间缺少时区：跳过耗时统计，保留计数",
+        "关闭时间早于创建时间：跳过耗时统计，保留计数",
+        "平均耗时保留两位小数"
+      ]
+    }
+  },
+  "fixed": {
+    "results": [
+      {
+        "case": "空输入：total=0、四状态=0、by_owner={}、average_closed_hours=None",
+        "input": [],
+        "output": {
+          "total": 0,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {},
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 0, 'by_status': {'open': 0, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "缺 owner 键：归 unassigned，不抛异常且计入统计",
+        "input": [
+          {
+            "id": "T001",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 1,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {
+            "unassigned": {
+              "total": 1,
+              "open": 1,
+              "processing": 0,
+              "closed": 0,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 1, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {'unassigned': {'total': 1, 'open': 1, 'processing': 0, 'closed': 0, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "缺 status 键：归 other，不抛异常且计入统计",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 0,
+            "other": 1
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 0,
+              "other": 1
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 0, 'other': 1}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 0, 'other': 1}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "owner 为空串/None/纯空格：全部归 unassigned",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T002",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T003",
+            "owner": "   ",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 3,
+          "by_status": {
+            "open": 3,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {
+            "unassigned": {
+              "total": 3,
+              "open": 3,
+              "processing": 0,
+              "closed": 0,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 3, 'by_status': {'open': 3, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {'unassigned': {'total': 3, 'open': 3, 'processing': 0, 'closed': 0, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "status 大小写/首尾空格：归一化为 open/processing/closed",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": " Open ",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T002",
+            "owner": "Chen",
+            "status": "PROCESSING",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T003",
+            "owner": "Chen",
+            "status": "Closed",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 3,
+          "by_status": {
+            "open": 1,
+            "processing": 1,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 3,
+              "open": 1,
+              "processing": 1,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 3, 'by_status': {'open': 1, 'processing': 1, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 3, 'open': 1, 'processing': 1, 'closed': 1, 'other': 0}}, 'average_closed_hours': None}（期望 by_owner 仅有 Chen 一个键、total=3）"
+      },
+      {
+        "case": "status 未知值：归 other，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "unknown",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 0,
+            "other": 1
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 0,
+              "other": 1
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 0, 'other': 1}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 0, 'other': 1}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "重复 id：只统计第一条，total 为去重后数量",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T10:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 1,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 1,
+              "processing": 0,
+              "closed": 0,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 1, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 1, 'processing': 0, 'closed': 0, 'other': 0}}, 'average_closed_hours': None}（期望 total=1、open=1、closed=0）"
+      },
+      {
+        "case": "id 缺失或纯空格：跳过该记录，不抛异常",
+        "input": [
+          {
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "   ",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          },
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "open",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 1,
+            "processing": 0,
+            "closed": 0,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 1,
+              "processing": 0,
+              "closed": 0,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 1, 'processing': 0, 'closed': 0, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 1, 'processing': 0, 'closed': 0, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "closed 工单缺 closed_at：保留计数，跳过耗时，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "closed_at 格式错误：保留计数，跳过耗时，不抛异常",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "not-a-time"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "时间缺少时区：跳过耗时统计，保留计数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00",
+            "closed_at": "2026-10-12T18:00:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "关闭时间早于创建时间：跳过耗时统计，保留计数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T18:00:00+08:00",
+            "closed_at": "2026-10-12T09:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": null
+        },
+        "passed": true,
+        "detail": "实际={'total': 1, 'by_status': {'open': 0, 'processing': 0, 'closed': 1, 'other': 0}, 'by_owner': {'Chen': {'total': 1, 'open': 0, 'processing': 0, 'closed': 1, 'other': 0}}, 'average_closed_hours': None}"
+      },
+      {
+        "case": "创建与关闭使用不同 UTC 偏移：正确换算后计入耗时（应得 1.0 小时）",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T02:00:00+00:00"
+          }
+        ],
+        "output": {
+          "total": 1,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 1,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 1,
+              "open": 0,
+              "processing": 0,
+              "closed": 1,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 1.0
+        },
+        "passed": true,
+        "detail": "实际=1.0（09:00+08:00 → 01:00 UTC，02:00+00:00 → 02:00 UTC，耗时应为 1.0 小时）"
+      },
+      {
+        "case": "平均耗时保留两位小数",
+        "input": [
+          {
+            "id": "T001",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T10:20:00+08:00"
+          },
+          {
+            "id": "T002",
+            "owner": "Chen",
+            "status": "closed",
+            "created_at": "2026-10-12T09:00:00+08:00",
+            "closed_at": "2026-10-12T11:00:00+08:00"
+          }
+        ],
+        "output": {
+          "total": 2,
+          "by_status": {
+            "open": 0,
+            "processing": 0,
+            "closed": 2,
+            "other": 0
+          },
+          "by_owner": {
+            "Chen": {
+              "total": 2,
+              "open": 0,
+              "processing": 0,
+              "closed": 2,
+              "other": 0
+            }
+          },
+          "average_closed_hours": 1.67
+        },
+        "passed": true,
+        "detail": "实际=1.67（期望 1.67，须保留两位小数）"
+      }
+    ],
+    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/fixtures/reference_ticket_stats.py",
+    "summary": {
+      "total_cases": 14,
+      "passed": 14,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "failed_cases": []
+    }
+  }
+}

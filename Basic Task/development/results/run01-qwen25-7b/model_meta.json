@@ -1,0 +1,203 @@
+{
+  "_说明": "运行档案：run01-qwen25-7b。本次运行使用 Qwen2.5-7B-Instruct，覆盖 P01、D01、C01、C02 四个提示词。字段值分三类：实测确认、日志/接口抄录、TODO（待补充）。",
+
+  "run_id": "run01-qwen25-7b",
+  "run_prompts": ["P01", "D01", "C01", "C02"],
+  "run_started_at": "2026-10-10T20:10:24+08:00",
+  "run_started_at_source": "server-c02.log 文件时间（ls -l --time-style=full-iso ~/server-c02.log）",
+  "data_collected_at": "2026-10-10T20:11:38+08:00",
+  "run_purpose": "基线：8GB 显存下 Qwen2.5-7B-Instruct 在办公写作（P01）、文档摘要（D01）、代码审查（C01）、代码修复（C02）四类任务上的表现",
+
+  "git": {
+    "commit": "d2aefdd69dd88741782ecde0910f326976941f3e",
+    "branch": "master",
+    "repo": "https://github.com/Mango03111/ANTLab-Infra-Tasks",
+    "_commit_note": "该 SHA 为本次运行存档完成时的提交；运行本身发生在该提交之前。最终提交时以 git rev-parse HEAD 更新。"
+  },
+
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "gpu_vram_total_mib": 8150,
+    "gpu_compute_capability": "12.0",
+    "gpu_vram_free_at_idle_mib": 7033,
+    "gpu_vram_used_during_run_mib": 5780,
+    "cpu": "Intel Core Ultra 9 275HX",
+    "cpu_threads_used": 24,
+    "host_ram_gb": 32.0,
+    "host_ram_usable_gb": 31.4,
+    "host_ram_speed_mts": 5600,
+    "host_os": "Windows 11 家庭版 中文版 25H2（OS 版本 26200.9457，安装日期 2025/9/25）",
+    "_host_os_note": "注意：注册表 HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion 的 ProductName 仍显示 “Windows 10 Home China”，这是 Win11 上的遗留字符串；以“系统 > 关于”页面的 Windows 11 为准。",
+    "storage_gb_total": 954,
+    "storage_gb_used": 616,
+    "device_name": "LAPTOP-P9N4PAK3 (TX Gaming FX608LM)",
+    "wsl_distro": "Ubuntu-26.04",
+    "wsl_version": "3.0.1.0",
+    "nvidia_driver": "591.91"
+  },
+
+  "model": {
+    "name": "Qwen2.5-7B-Instruct",
+    "source_type": "从 Ollama 本地模型仓库复用 GGUF blob（非 Hugging Face 官方下载）",
+    "ollama_manifest": "D:\\LLM\\manifests\\registry.ollama.ai\\library\\qwen2.5\\7b",
+    "file_path_in_wsl": "/mnt/d/LLM/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+    "file_size_bytes": 4683073952,
+    "quantization": "Q4_K - Medium",
+    "params": "7.62 B",
+    "sha256": "2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+    "_sha256_note": "已用 sha256sum 实测复核：实测值与 Ollama 内容寻址文件名一致，校验通过（2026-10-10）。",
+    "known_issue": "加载时出现告警：control-looking token 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden。该告警源于从 Ollama 内容寻址仓库复用的 GGUF 元数据不规范，llama.cpp 已自动纠正 token 类型，推理输出经核验正常（中文回答无乱码、ftype 正确识别为 Q4_K）。处理决定：保留用于基线运行；正式对比实验改用 Hugging Face 官方 GGUF。"
+  },
+
+  "inference_engine": {
+    "name": "llama.cpp",
+    "build": "b11540",
+    "commit": "1e6f04a75",
+    "binaries_path_in_wsl": "/home/iriyasufiiru/llama/llama-b11540",
+    "binaries_kind": "官方预编译 Linux CUDA 包（llama-b11540-bin-ubuntu-cuda-12.8-x64.tar.gz）",
+    "cuda_runtime": "12.8.90 (cuda-cudart-12-8)",
+    "cublas": "12.8.5.5 (libcublas-12-8)",
+    "cuda_backend_loaded": "load_backend: loaded CUDA backend from /home/iriyasufiiru/llama/llama-b11540/libggml-cuda.so"
+  },
+
+  "service_config": {
+    "command": "./llama-server -m /mnt/d/LLM/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730 -ngl 99 -lm none -c 24576 -np 2 -fa on --host 127.0.0.1 --port 8080",
+    "command_verified_at": "2026-10-10T20:10:24+08:00（重启固定配置后实测确认）",
+    "n_ctx_total_tokens": 24576,
+    "n_parallel_slots": 2,
+    "n_ctx_per_slot_tokens": 12288,
+    "_n_ctx_per_slot_evidence": "三重印证：① 启动日志 load_model: initializing, n_slots = 2, n_ctx_slot = 12288, kv_unified = 'false'；② GET /slots 返回两个 slot 均为 n_ctx = 12288；③ nvidia-smi 运行中占用 5780 MiB。与 -c 24576 ÷ -np 2 = 12288 完全一致。",
+    "gpu_vram_used_with_24k_ctx_mib": 5780,
+    "gpu_vram_headroom_mib": 2370,
+    "kv_size_estimate_mib": "约 1.3 GiB（24576 tokens × 56 KiB/token ≈ 1376 MiB，f16 KV，28 层 / 4 个 KV head / head_dim 128）",
+    "kv_unified": false,
+    "kv_type": "f16（默认，未做 KV 量化）",
+    "flash_attention": "on (-fa on)",
+    "n_gpu_layers": 99,
+    "load_mode": "none (-lm none，等价于旧版 --no-mmap，权重不映射)",
+    "host": "127.0.0.1",
+    "port": 8080,
+    "api_key": "未设置",
+    "api_key_说明": "本轮未启用 API key（启动日志出现 security 告警：no API key is set and CORS allows all origins）。服务仅绑定 127.0.0.1，本机访问，无鉴权需求；生产部署或开放端口时应通过 --api-key 补充鉴权。此项已确认，无需再补。",
+    "_早期的较小配置": "C01 首次尝试时服务端为 -c 8192 -np 2（每 slot 4096），请求 5318 tokens 被拒；后提升到 -c 24576 -np 2 重跑成功。"
+  },
+
+  "sampling_params": {
+    "_来源": "GET /props → default_generation_settings.params",
+    "temperature": 0.800000011920929,
+    "top_k": 40,
+    "top_p": 0.949999988079071,
+    "min_p": 0.05000000074505806,
+    "repeat_last_n": 64,
+    "repeat_penalty": 1.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0,
+    "dry_multiplier": 0.0,
+    "mirostat": 0,
+    "seed": 4294967295,
+    "_seed_note": "服务端默认 seed（等价随机）；本次运行的实际 seed 未记录 → 同一输出无法逐 token 复现。正式测试建议固定 seed。",
+    "max_tokens": -1,
+    "n_predict": -1,
+    "chat_format": "Content-only",
+    "reasoning_format": "none",
+    "samplers": ["penalties", "dry", "top_n_sigma", "top_k", "typ_p", "top_p", "min_p", "xtc", "temperature"]
+  },
+
+  "client": {
+    "type": "llama.cpp 内置 Web UI",
+    "url": "http://127.0.0.1:8080/",
+    "browser": "未单独记录（Web UI 手工运行）",
+    "conversation_ids": {
+      "P01": "未单独记录（Web UI 手工运行）",
+      "D01": "未单独记录（Web UI 手工运行）",
+      "C01_and_C02_first_attempt": "41a46263-3007-43b3-a6a7-3cf66004ef67",
+      "C02_successful_run": "a58e5f80-f6a1-49cc-9a5b-763069745b43"
+    },
+    "_conversation_note": "C01 与 C02 曾复用同一会话，导致对话历史累加、输入 token 膨胀（C01 5318 → C02 9559）。已确认这是请求超上下文的原因之一。",
+    "mcp_tools_enabled": "未配置任何 MCP 服务器（已核实 Web UI 的 MCP Servers 列表为空）。但 Web UI 自带的浏览器工具在 C02 运行中弹出 get_info 授权请求，已拒绝授权，工具未实际执行。处理决定：保持不配置、不授权；下一步改用 /v1/chat/completions 接口由测试程序驱动，以完全排除 UI 工具层对输入 token 与评测结果的干扰。"
+  },
+
+  "prompts": {
+    "P01": {
+      "type": "纯提示词（办公邮件）",
+      "attached_file": null,
+      "input_tokens_reported_by_ui": 362,
+      "output_tokens_reported_by_ui": 302,
+      "server_elapsed_s": 5.2,
+      "server_generation_tps": "n/a（截图未显示）",
+      "output": "outputs/P01-D01_office_samples.md",
+      "verdict": "通过",
+      "_note": "纯提示词任务，通过。邮件含主题+正文，覆盖延期原因（接口联调未完成）、新演示安排（下周二）、正式交付日期不变、后续沟通方式，正文约 280 字。逐项判定见 outputs/P01-D01_office_samples.md。"
+    },
+    "D01": {
+      "type": "关联文件（办公文档摘要）",
+      "attached_file": "Basic Task/提示词与输入文档/输入文档/办公输入01-项目会议与进度资料.md",
+      "attached_file_tokens_per_taskdoc": 2131,
+      "input_tokens_reported_by_ui": 2450,
+      "output_tokens_reported_by_ui": 1214,
+      "server_generation_tps": 62.0,
+      "output": "outputs/P01-D01_office_samples.md",
+      "verdict": "通过（质量较好）",
+      "_note": "通过。输出含总体状态、各模块进度、已确定决定、阻塞事项、行动项表格（事项/负责人/截止时间/依赖）、待确认事项、下次会议 3 个问题；内部演示日期采用资料中日期较新的会议决定（10 月 20 日）并显式说明依据。逐项判定见 outputs/P01-D01_office_samples.md。"
+    },
+    "C01": {
+      "type": "关联源文件（代码审查）",
+      "attached_file": "Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+      "attached_file_tokens_per_taskdoc": 1518,
+      "input_tokens_reported_by_ui": 5318,
+      "output_tokens_reported_by_ui": 2589,
+      "server_elapsed_s": "约 44（截图显示 44s）",
+      "server_generation_tps": 58.32,
+      "output": "outputs/C01_review.md",
+      "_note": "首次尝试时每 slot 上下文为 4096，请求 5318 tokens 被服务端拒绝；提升上下文后重跑成功。"
+    },
+    "C02": {
+      "type": "关联源文件（代码修复与测试）",
+      "attached_file": "Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+      "attached_file_size_kb": 5.46,
+      "attached_file_tokens_per_taskdoc": 1518,
+      "input_tokens_reported_by_ui": 6322,
+      "output_tokens_reported_by_ui": 1486,
+      "server_elapsed_s": 23,
+      "server_generation_tps": 62.39,
+      "_tokens_note": "UI 报 6322 input tokens，含对话历史与工具/模板开销，高于任务文档核验的 1518（仅源文件全文）。报告中使用时需说明口径差异。",
+      "output_raw": "C02_raw_response.md",
+      "output_code": "outputs/C02_fixed.py"
+    }
+  },
+
+  "_待归档提示词": "P01 与 D01 的输出已归档为 outputs/P01-D01_office_samples.md（含逐项检查表）。运行共覆盖 P01、D01、C01、C02 四个提示词；P02–P04、D02–D04 尚待覆盖，任务要求共 10 个规定提示词，计划由 src/ 测试程序统一重跑并归档。",
+
+  "evaluation": {
+    "method": "tests/verify_ticket_stats.py，14 个用例对照源文件头部《功能约定》与 EDGE_SCENARIOS",
+    "orig_pass": "1/14 (7.1%)",
+    "fixed_pass": "2/14 (14.3%)",
+    "reference_pass": "14/14 (100.0%)",
+    "_note": "三项均在同一套 14 个用例下测得。参考实现为 tests/fixtures/reference_ticket_stats.py，用于给用例背书；见 reference_14of14_proof.json。",
+    "_assertion_fixes": [
+      "修正 1：状态归一化用例原先只校验 by_status，导致 by_owner 键集合错误（用 id 当键）也能通过；已加校验 by_owner 键集合与人数。",
+      "修正 2：时区偏移用例的期望值原为 0.0（误把 09:00+08:00 与 02:00+00:00 当作同一时刻），实际相差 1.0 小时；已改为期望 1.0 并修正说明文字。该修正同时使原始版与模型版各自 +1，属于修正判定错误而非放宽标准。"
+    ],
+    "verification_rerun_at": "2026-10-10T20:51:20+08:00",
+    "verification_file": "C02_verify.json",
+    "reference_proof_file": "reference_14of14_proof.json",
+    "C01_finding": "模型列出 10 条，其中仅 1 条判定正确（重复 id 未去重）；其余 9 条声称“已实现正确处理”，与源文件事实相反；源文件中 4 个客观崩溃点（owner 缺失、status 缺失、closed_at 缺失、时间格式非法）全部漏报。详见 outputs/C01_review.md。",
+    "key_findings": [
+      "by_owner 以工单号 id 作为键，违反“按处理人分组”的约定（结构性错误）",
+      "缺失/空白 owner 与未知状态被 continue 丢弃，未按约定归入 unassigned / other",
+      "total 未按 id 去重，仍为 len(records)",
+      "id 键缺失触发 AttributeError；status 键缺失触发 KeyError；无效时间触发 ValueError",
+      "无效时间与缺时区时间仍被计入耗时；average_closed_hours 未保留两位小数"
+    ]
+  },
+
+  "cache_metrics": {
+    "_来源": "启动日志 slot 调试输出 + GET /slots（运行时采样，非累计）",
+    "C02_n_prompt_tokens": 3454,
+    "C02_n_prompt_tokens_cache": 221,
+    "C02_prefix_cache_hit_ratio_observed": 0.064,
+    "_corrected_interpretation": "C01 与 C02 之间不存在可复用的 token 前缀：C02 以新文件开头，而 C01 的文件位于更早位置，前缀在 C01 的回答处即分叉；两次运行还分别处于不同会话。故 6.4% 不可解释为“缓存浪费”。",
+    "same_session_reuse_evidence": "启动日志出现 `selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold)`，随后 `n_past was set to 1869`：表明同一会话内的前缀复用生效（相似度 100%，仅需计算新增 token）。",
+    "_结论": "前缀复用是否生效取决于“资料是否位于前缀”。任务要求的输入顺序为“系统消息 → 资料区 → 任务区”，因此 D01/D02、D03/D04 这类“同一资料配不同任务”的连续请求才具备可复用前缀。该对比可作为进阶方向一（KV 缓存复用）的切入口。"
+  }
+}
