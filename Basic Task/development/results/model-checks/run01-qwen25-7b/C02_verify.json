@@ -1,8 +1,8 @@
 {
   "run_id": "run01-qwen25-7b",
-  "generated_at": "2026-10-10T20:51:20+08:00",
+  "generated_at": "2026-10-11T16:44:01+08:00",
   "orig_path": "/mnt/d/ANTLabAgent/infra/Basic Task/提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
-  "fixed_path": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py",
+  "fixed_path": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py",
   "orig": {
     "results": [
       {
@@ -463,7 +463,7 @@
         "passed": false,
         "output": null,
         "error": "KeyError: 'status'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 31, in summarize_tickets\n    status = record[\"status\"].strip().lower()\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py\", line 31, in summarize_tickets\n    status = record[\"status\"].strip().lower()\n             ~~~~~~^^^^^^^^^^\nKeyError: 'status'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -654,7 +654,7 @@
         "passed": false,
         "output": null,
         "error": "AttributeError: 'NoneType' object has no attribute 'strip'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 29, in summarize_tickets\n    id = record.get(\"id\").strip()\n         ^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'strip'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py\", line 29, in summarize_tickets\n    id = record.get(\"id\").strip()\n         ^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'strip'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -703,7 +703,7 @@
         "passed": false,
         "output": null,
         "error": "ValueError: Invalid isoformat string: 'not-a-time'",
-        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 53, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py\", line 16, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
+        "traceback": "Traceback (most recent call last):\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/tests/verify_ticket_stats.py\", line 288, in run_suite\n    summary = module.summarize_tickets(records)\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py\", line 53, in summarize_tickets\n    hours.append(ticket_hours(record))\n                 ~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py\", line 16, in ticket_hours\n    end = parse_time(record[\"closed_at\"])\nValueError: Invalid isoformat string: 'not-a-time'\n",
         "detail": "抛出异常，判为失败"
       },
       {
@@ -853,7 +853,7 @@
         "detail": "实际=1.6666666666666665（期望 1.67，须保留两位小数）"
       }
     ],
-    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/run01-qwen25-7b/outputs/C02_fixed.py",
+    "source": "/mnt/d/ANTLabAgent/infra/Basic Task/development/results/model-checks/run01-qwen25-7b/outputs/C02_fixed.py",
     "summary": {
       "total_cases": 14,
       "passed": 2,
