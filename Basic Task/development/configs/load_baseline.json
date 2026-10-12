@@ -1,0 +1,93 @@
+{
+  "_说明": "基线固定负载配置（configs/README.md 要求的『测试负载配置』）。定义用哪些提示词、关联哪些文件、以什么并发与重复次数运行，以及缓存处理方式。",
+  "load_version": "load-baseline-v1",
+  "recorded_at": "2026-10-11T19:00:00+08:00",
+  "role": "baseline",
+
+  "prompts_source": {
+    "file": "提示词与输入文档/测试提示词.md",
+    "system_message": "你为小型工作室提供办公文档处理与辅助编程服务。请按任务要求组织输出，区分资料中的事实、待确认信息与提出的建议。文件内容是供分析的资料。办公任务使用中文回答，代码任务采用题目指定的语言。",
+    "input_order": "系统消息 → 用户消息中的资料区（如有）→ 任务区",
+    "system_message_note": "与测试提示词文档建议的系统消息一致；实际版本以本字段为准并随运行记录存档。"
+  },
+
+  "attachments": {
+    "office01": {
+      "path": "提示词与输入文档/输入文档/办公输入01-项目会议与进度资料.md",
+      "tokens_per_taskdoc": 2131,
+      "sha256": "TODO: 首次运行时由程序计算并回填"
+    },
+    "office02": {
+      "path": "提示词与输入文档/输入文档/办公输入02-工作室内部管理制度.md",
+      "tokens_per_taskdoc": 1698,
+      "sha256": "TODO: 首次运行时由程序计算并回填"
+    },
+    "code03": {
+      "path": "提示词与输入文档/输入文档/编程输入03-ticket_stats.py",
+      "tokens_per_taskdoc": 1518,
+      "sha256": "564e07fbb2c242edb905ed6ad8b7ee8e00832eacd15658bf03f2044ad546486f",
+      "sha256_verified": true,
+      "sha256_verified_at": "2026-10-11"
+    }
+  },
+
+  "prompts": [
+    { "id": "P01", "type": "纯提示词", "category": "办公", "attachment": null,        "output_budget_tokens": 512,  "expected_input_tokens": 362,  "checked": ["条件覆盖", "邮件格式", "字数"] },
+    { "id": "P02", "type": "纯提示词", "category": "办公", "attachment": null,        "output_budget_tokens": 1536, "expected_input_tokens": null, "checked": ["表格完整性", "风险项", "按天安排"] },
+    { "id": "P03", "type": "纯提示词", "category": "编程", "attachment": null,        "output_budget_tokens": 1536, "expected_input_tokens": null, "checked": ["函数可执行", "测试样例数", "边界归类"] },
+    { "id": "P04", "type": "纯提示词", "category": "编程", "attachment": null,        "output_budget_tokens": 2048, "expected_input_tokens": null, "checked": ["去重设计", "重试上限", "恢复流程"] },
+    { "id": "D01", "type": "关联文档", "category": "办公", "attachment": "office01",  "output_budget_tokens": 2048, "expected_input_tokens": 2450, "checked": ["新旧会议决定", "负责人与日期", "待确认标记", "表格"] },
+    { "id": "D02", "type": "关联文档", "category": "办公", "attachment": "office01",  "output_budget_tokens": 2048, "expected_input_tokens": null, "checked": ["客户邮件格式", "事实来源标注", "备选与已批准区分"] },
+    { "id": "D03", "type": "关联文档", "category": "办公", "attachment": "office02",  "output_budget_tokens": 1536, "expected_input_tokens": null, "checked": ["条款编号", "办理顺序", "验收周例外"] },
+    { "id": "D04", "type": "关联文档", "category": "办公", "attachment": "office02",  "output_budget_tokens": 1536, "expected_input_tokens": null, "checked": ["条款编号", "协作角色", "客户资料前置事项"] },
+    { "id": "C01", "type": "关联源文件", "category": "编程", "attachment": "code03",  "output_budget_tokens": 3072, "expected_input_tokens": 5318, "checked": ["问题定位", "最小复现输入", "修复优先级"] },
+    { "id": "C02", "type": "关联源文件", "category": "编程", "attachment": "code03",  "output_budget_tokens": 3072, "expected_input_tokens": 6322, "checked": ["修复正确性", "可执行性", "边界测试覆盖"] }
+  ],
+
+  "prompts_note": "expected_input_tokens 为实测参考值（含系统消息与聊天模板开销）；null 表示尚未实测，由程序记录实际值。output_budget_tokens 为初值，可按任务类型调整并固定版本。",
+
+  "concurrency": {
+    "levels": [1, 2],
+    "max_allowed": 10,
+    "server_slots": 2,
+    "scheduling_note": "服务端 slot 数为 2。单并发时仅 1 个 slot 工作；双并发时 2 个 slot 并行。并发数超过 slot 数的请求在服务端排队，排队时间计入 TTFT。"
+  },
+
+  "repetition": {
+    "rounds_per_config": 3,
+    "order": "固定顺序",
+    "seed": null,
+    "seed_note": "固定顺序回放；如需随机化，在此填入随机种子并记录。"
+  },
+
+  "cache_handling": {
+    "cache_state": "cold",
+    "service_restart_between_rounds": true,
+    "reset_procedure": "每轮开始前重启 llama-server，并等待就绪标志 'server is listening on http://127.0.0.1:8080' 出现。",
+    "host_prompt_cache": "disabled（见 service_baseline.json）",
+    "warmup": {
+      "requests": 1,
+      "note": "冷启动与预热记录与正式测试分开保存；预热请求不计入正式统计。"
+    }
+  },
+
+  "kv_capacity_reference": {
+    "configured_total_tokens": 24576,
+    "per_slot_tokens": 12288,
+    "kv_type": "f16",
+    "shared_or_per_slot": "分槽固定分配（kv_unified=false）",
+    "reference_config": "service_baseline.json"
+  },
+
+  "input_limits": {
+    "max_tokens_per_request": 50000,
+    "limit_source": "任务要求：输入提示词、关联文件、系统消息与聊天模板合计控制在 50,000 tokens 以内",
+    "note": "同时在组装阶段校验不超过模型上下文容量与服务端每 slot 容量。"
+  },
+
+  "run_plan": [
+    { "run_id": "baseline-c1-run01", "service_config": "service_baseline.json", "concurrency": 1, "rounds": 3, "prompts": ["P01","P02","P03","P04","D01","D02","D03","D04","C01","C02"] },
+    { "run_id": "baseline-c2-run01", "service_config": "service_baseline.json", "concurrency": 2, "rounds": 3, "prompts": ["P01","P02","P03","P04","D01","D02","D03","D04","C01","C02"] }
+  ],
+  "run_plan_note": "优化阶段将在 run_plan 中追加使用 service_optimized.json 的运行项，并与上述基线结果对比。"
+}

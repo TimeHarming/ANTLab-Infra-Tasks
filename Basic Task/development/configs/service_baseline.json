@@ -1,0 +1,98 @@
+{
+  "_说明": "基线服务配置（configs/README.md 要求的『服务、模型、基线配置』）。字段来源：llama-server 启动参数 + 启动日志 + GET /props 实测值。JSON 不支持注释，以下划线开头的键为伪注释。",
+  "config_version": "cfg-baseline-c1-v1",
+  "recorded_at": "2026-10-11T19:00:00+08:00",
+  "role": "baseline",
+
+  "model": {
+    "name": "Qwen2.5-7B-Instruct",
+    "params": "7.62 B",
+    "quantization": "Q4_K_M",
+    "gguf_file_type": 15,
+    "file_path": "/mnt/d/LLM/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+    "file_size_bytes": 4683073952,
+    "sha256": "2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730",
+    "sha256_verified": true,
+    "source_type": "Ollama 本地仓库复用（非 Hugging Face 官方下载）",
+    "source_ref": "registry.ollama.ai/library/qwen2.5:7b",
+    "known_issue": "加载告警 control-looking token 128247 '</s>' was not control-type；llama.cpp 已自动纠正，推理输出正常。"
+  },
+
+  "inference_engine": {
+    "name": "llama.cpp",
+    "build": "b11540",
+    "commit": "1e6f04a75",
+    "binaries_path": "/home/iriyasufiiru/llama/llama-b11540",
+    "binaries_kind": "官方预编译 Linux CUDA 包（llama-b11540-bin-ubuntu-cuda-12.8-x64.tar.gz）",
+    "cuda_runtime": "12.8.90 (cuda-cudart-12-8)",
+    "cublas": "12.8.5.5 (libcublas-12-8)",
+    "nvidia_driver": "591.91"
+  },
+
+  "runtime": {
+    "command": "./llama-server -m /mnt/d/LLM/blobs/sha256-2bada8a7450677000f678be90653b85d364de7db25eb5ea54136ada5f3933730 -ngl 99 -lm none -c 24576 -np 2 -fa on -b 2048 -ub 512 --no-cache-prompt --cache-ram 0 --host 127.0.0.1 --port 8080",
+
+    "n_ctx": 24576,
+    "n_parallel_slots": 2,
+    "n_ctx_per_slot": 12288,
+    "kv_allocation": "分槽固定分配（kv_unified=false）",
+
+    "n_gpu_layers": 99,
+    "kv_location": "GPU",
+    "kv_type": "f16",
+    "kv_type_k": "f16",
+    "kv_type_v": "f16",
+
+    "host_prompt_cache_enabled": false,
+    "host_prompt_cache_args": "--no-cache-prompt --cache-ram 0",
+    "host_prompt_cache_note": "任务要求『关闭主机 RAM prompt cache，使基础阶段的缓存工作集驻留显存』。--no-cache-prompt 关闭 prompt 缓存；--cache-ram 0 将主机 RAM 缓存上限设为 0。",
+
+    "flash_attention": true,
+    "batch_size": 2048,
+    "ubatch_size": 512,
+    "continuous_batching": true,
+    "load_mode": "none",
+    "n_predict": -1,
+    "threads": 24,
+
+    "host": "127.0.0.1",
+    "port": 8080,
+    "api_key": null,
+    "api_key_note": "未设置；服务仅绑定本机回环地址，无鉴权需求。"
+  },
+
+  "sampling": {
+    "_source": "GET /props → default_generation_settings.params",
+    "temperature": 0.8,
+    "top_k": 40,
+    "top_p": 0.949999988079071,
+    "min_p": 0.05000000074505806,
+    "repeat_last_n": 64,
+    "repeat_penalty": 1.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0,
+    "dry_multiplier": 0.0,
+    "mirostat": 0,
+    "seed": 4294967295,
+    "seed_note": "服务端默认值（等价随机）。基线运行未固定 seed，输出无法逐 token 复现；后续正式对比实验应固定 seed。",
+    "chat_format": "Content-only",
+    "reasoning_format": "none"
+  },
+
+  "measured": {
+    "vram_total_mib": 8150,
+    "vram_free_at_idle_mib": 7033,
+    "vram_used_with_24k_ctx_mib": 5780,
+    "vram_headroom_mib": 2370,
+    "model_load_seconds": 0.15,
+    "n_ctx_per_slot_evidence": "三重印证：启动日志 n_slots=2 n_ctx_slot=12288；/slots 返回两个 slot 均 n_ctx=12288；nvidia-smi 实测 5780 MiB。"
+  },
+
+  "host_environment": {
+    "os": "Windows 11 家庭版 中文版 25H2 (26200.9457)",
+    "wsl": "3.0.1.0 / Ubuntu-26.04",
+    "cpu": "Intel Core Ultra 9 275HX",
+    "ram_gb": 32.0,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU (8150 MiB, compute capability 12.0)"
+  }
+}

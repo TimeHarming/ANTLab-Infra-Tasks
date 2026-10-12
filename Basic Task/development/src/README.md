@@ -4,8 +4,7 @@
 
 请保存依赖声明及必要的运行入口，在开发区域首页说明启动流程和模块职责。
 
-`提示词与输入文档/输入文档/编程输入03-ticket_stats.py` 是模型测试素材。模型生成的修复版本和相关检查结果按运行编号保存到 `results/`，用于比较测试配置的输出效果。
-
+`提示词与输入文档/输入文档/编程输入03-ticket_stats.py` 是模型测试素材。模型生成的修复版本和相关检查结果按运行编号保存到 `results/`，用于比较测试配置的
 ---
 
 <!-- ================= 以下是本项目实现说明（学生添加） ================= -->
@@ -63,4 +62,10 @@ python3 -B metrics.py
 | `server_client.py` | 逐请求记录（时间戳、token 数、状态、错误） | `../results/<运行编号>/requests.jsonl` |
 | `metrics.py` | 汇总统计（中位数/P95/吞吐/成功率/口径定义） | `../results/<运行编号>/summary.json` |
 | `storage.py` | 服务配置快照 | `../results/<运行编号>/config.json` |
+| — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |
+号>/config.json` |
+| — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |fig.json` |
+| — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |fig.json` |
+| — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |fig.json` |
+| — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |g.json` |
 | — | 每个请求的模型输出文本 | `../results/<运行编号>/outputs/` |
